@@ -34,7 +34,7 @@ class Board {
     
     void boardEntry(string choice, int num) {
         char sym;
-        if (num % 2 == 1) {
+        if (num == 1) {
             sym = 'X';
         }
         else {
@@ -106,6 +106,13 @@ class Board {
 
 //Functions
 
+void boardHelp() {
+    cout << "Enter the two numbers corresponding to the space on the board:" << endl;
+    cout << "00 01 02" << endl;
+    cout << "10 11 12" << endl;
+    cout << "20 21 22" << endl;
+}
+
 
 void turn(Board gameBoard, int num) {
     cout << "The current board is as follows:" << endl;
@@ -115,18 +122,23 @@ void turn(Board gameBoard, int num) {
     cout << endl;
     cout << "What slot would you like to change?" << endl;
     cout << "enter column number, then row number, of the spot you are changing" << endl;
-    
+    cout << "Enter help for assistance" << endl;
     string choice;
     cin >> choice;
     
-    gameBoard.boardEntry(choice, num);
+    if (choice == "help" || choice == "Help") {
+        boardHelp();
+        turn(gameBoard, num);
+    }
+    else {
+        gameBoard.boardEntry(choice, num);
+    }
     
-    
-    if (gameBoard.winCondition(gameBoard) == 1) {
+    if (gameBoard.winCondition(gameBoard) == 1) {   //checks win condiiton
         gameBoard.printBoard();
         cout << "Player " << num << " Is the winner!" << endl;
     }
-    else {
+    else {          //reruns turn function for next player
         if (num == 1) {
             turn(gameBoard, 2);
         }
